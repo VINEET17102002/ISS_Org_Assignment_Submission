@@ -1,0 +1,41 @@
+package com.example.javaconcepts;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class PolymorphismExample {
+    private static final Logger logger = LogManager.getLogger(PolymorphismExample.class);
+
+    public static void main(String[] args) {
+        Animal myDog = new Dog(); // Upcasting
+        Animal myCat = new Cat(); // Upcasting
+
+        myDog.makeSound(); // Dynamic Method Dispatch
+        myCat.makeSound(); // Dynamic Method Dispatch
+    }
+}
+
+abstract class Animal {
+    private static final Logger logger = LogManager.getLogger(Animal.class);
+
+    // Abstract method to ensure subclasses implement this
+    public abstract void makeSound();
+}
+
+class Dog extends Animal {
+    private static final Logger logger = LogManager.getLogger(Dog.class);
+
+    @Override
+    public void makeSound() {
+        logger.info("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    private static final Logger logger = LogManager.getLogger(Cat.class);
+
+    @Override
+    public void makeSound() {
+        logger.info("Cat meows");
+    }
+}

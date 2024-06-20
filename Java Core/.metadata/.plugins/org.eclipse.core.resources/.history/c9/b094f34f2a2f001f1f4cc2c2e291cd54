@@ -1,0 +1,16 @@
+package com.example.javaconcepts;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class PolymorphismExample {
+    private static final Logger logger = LogManager.getLogger(PolymorphismExample.class);
+
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        Animal myCat = new Cat();
+
+        myDog.makeSound(); // Outputs: Dog barks
+        myCat.makeSound(); // Outputs: Cat meows
+    }
+}

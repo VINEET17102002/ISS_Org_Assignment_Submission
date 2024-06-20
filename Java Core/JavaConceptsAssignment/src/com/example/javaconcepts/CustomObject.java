@@ -1,0 +1,27 @@
+package com.example.javaconcepts;
+
+public class CustomObject {
+    private int id;
+    private String name;
+
+    public CustomObject(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomObject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}

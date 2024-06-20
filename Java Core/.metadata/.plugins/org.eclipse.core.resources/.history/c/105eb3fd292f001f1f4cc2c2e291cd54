@@ -1,0 +1,53 @@
+package com.example.javaconcepts;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class PolymorphismExample {
+    private static final Logger logger = LogManager.getLogger(PolymorphismExample.class);
+
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        Animal myCat = new Cat();
+        Animal myBird = new Bird();
+
+        makeAnimalSound(myDog);
+        makeAnimalSound(myCat);
+        makeAnimalSound(myBird);
+    }
+
+    public static void makeAnimalSound(Animal animal) {
+        animal.makeSound();
+    }
+}
+
+interface Animal {
+    void makeSound();
+}
+
+class Dog implements Animal {
+    private static final Logger logger = LogManager.getLogger(Dog.class);
+
+    @Override
+    public void makeSound() {
+        logger.info("Dog barks");
+    }
+}
+
+class Cat implements Animal {
+    private static final Logger logger = LogManager.getLogger(Cat.class);
+
+    @Override
+    public void makeSound() {
+        logger.info("Cat meows");
+    }
+}
+
+class Bird implements Animal {
+    private static final Logger logger = LogManager.getLogger(Bird.class);
+
+    @Override
+    public void makeSound() {
+        logger.info("Bird chirps");
+    }
+}

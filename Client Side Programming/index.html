@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation Example</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        .form-control.error {
+            border-color: red;
+        }
+
+        .invalid-feedback {
+            display: none;
+            /* Initially hide all error messages */
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">Registration Form</h2>
+                        <form id="registrationForm" novalidate>
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                                <div class="invalid-feedback">Username is required.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" required
+                                    minlength="8">
+                                <div class="invalid-feedback">Password must be at least 8 characters long.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password:</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                    required>
+                                <div class="invalid-feedback">Passwords do not match.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age:</label>
+                                <input type="number" class="form-control" id="age" name="age" required min="18"
+                                    max="99">
+                                <div class="invalid-feedback">Please enter a valid age between 18 and 99.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number:</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{10}">
+                                <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                                <label class="form-check-label" for="terms">Agree to terms and conditions</label>
+                                <div class="invalid-feedback">You must agree to the terms and conditions.</div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS for Validation -->
+    <script>
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var form = document.getElementById('registrationForm');
+                var formElements = form.elements;
+
+                // Disable native browser validation bubbles
+                form.setAttribute('novalidate', 'true');
+
+                form.addEventListener('submit', function (event) {
+                    var isValid = true;
+
+                    // Check validity of each form element manually
+                    for (var i = 0; i < formElements.length; i++) {
+                        if (!formElements[i].checkValidity()) {
+                            isValid = false;
+                            var errorMessages = formElements[i].parentNode.getElementsByClassName('invalid-feedback');
+                            for (var j = 0; j < errorMessages.length; j++) {
+                                errorMessages[j].style.display = 'block';
+                            }
+                        }
+                    }
+
+                    if (!isValid) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+
+                // Custom validation for password confirmation
+                document.getElementById('confirmPassword').addEventListener('input', function () {
+                    var password = document.getElementById('password').value;
+                    var confirmPassword = this.value;
+                    if (password !== confirmPassword) {
+                        this.setCustomValidity('Passwords do not match.');
+                    } else {
+                        this.setCustomValidity('');
+                    }
+                });
+
+                // Show and hide error messages based on user interaction
+                formElements.forEach(function (element) {
+                    element.addEventListener('input', function () {
+                        if (this.checkValidity()) {
+                            this.classList.remove('error');
+                            var errorMessages = this.parentNode.getElementsByClassName('invalid-feedback');
+                            for (var i = 0; i < errorMessages.length; i++) {
+                                errorMessages[i].style.display = 'none';
+                            }
+                        } else {
+                            this.classList.add('error');
+                            var errorMessages = this.parentNode.getElementsByClassName('invalid-feedback');
+                            for (var i = 0; i < errorMessages.length; i++) {
+                                errorMessages[i].style.display = 'block';
+                            }
+                        }
+                    });
+                });
+
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>

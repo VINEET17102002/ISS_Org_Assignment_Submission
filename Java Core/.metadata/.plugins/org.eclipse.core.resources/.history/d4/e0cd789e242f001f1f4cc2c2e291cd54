@@ -1,0 +1,45 @@
+package com.example.javaconcepts;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class SortingExample {
+    private static final Logger logger = LogManager.getLogger(SortingExample.class);
+
+    public static void main(String[] args) {
+        // Sorting primitives
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(5);
+        numbers.add(2);
+        numbers.add(7);
+        logger.info("Before sorting: " + numbers);
+        Collections.sort(numbers);
+        logger.info("After sorting: " + numbers);
+
+        // Sorting custom objects using Comparable
+        List<CustomObject> customObjects = new ArrayList<>();
+        customObjects.add(new CustomObject(3, "Alice"));
+        customObjects.add(new CustomObject(1, "Bob"));
+        customObjects.add(new CustomObject(2, "Charlie"));
+        logger.info("Before sorting (custom objects): " + customObjects);
+        Collections.sort(customObjects);
+        logger.info("After sorting (custom objects): " + customObjects);
+
+        // Sorting custom objects using Comparator
+        Collections.sort(customObjects, new CustomObjectComparator());
+        logger.info("After sorting with Comparator (custom objects): " + customObjects);
+    }
+
+    // Comparator for CustomObject
+    static class CustomObjectComparator implements Comparator<CustomObject> {
+        @Override
+        public int compare(CustomObject o1, CustomObject o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    }
+}
